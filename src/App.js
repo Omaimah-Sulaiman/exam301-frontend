@@ -1,12 +1,15 @@
 import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Home from './components/Home';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import { withAuth0 } from '@auth0/auth0-react';
+import FavFlowers from './components/FavFlowers';
+import LogoutButton from './components/LogoutButton';
 
 
 class App extends React.Component {
@@ -21,9 +24,14 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
                 {/* TODO: if the user is logged in, render the `Home` component, if they are not, render the `Login` component */}
+                <Home/>
               </Route>
               <Route exact path="/favFlowers">
                 {/* TODO: if the user is logged in, render the `FavFlowers` component, if they are not, render the `Login` component */}
+                {isAuthenticated && 
+             
+                  <FavFlowers />
+                }
               </Route>
             </Switch>
             <Footer />
