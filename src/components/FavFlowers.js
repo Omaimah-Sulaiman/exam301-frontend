@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import { withAuth0 } from '@auth0/auth0-react';
+
 
 
 class FavFlowers extends React.Component {
@@ -10,7 +12,8 @@ constructor(props){
   super(props);
   this.state({
     flowerFa:[],
-    newflower:{}
+    newflower:{},
+    show : false
     
   })
 this.componentDidMount(
@@ -29,7 +32,11 @@ const deleteFlower=(id)=>{
 }
 
 const shawingModeleUpdate=(flower)=>{
-   newflower:flower
+  this.setState({
+    newflower:flower,
+    show:true,
+
+  })
 }
  const updataFlower=(flower)=>{
    const id =this.state.newflower.id
@@ -53,9 +60,18 @@ const shawingModeleUpdate=(flower)=>{
 }
 
   render() {
+    const { isAuthenticated } = this.props.auth0;
+
     return(
       <>
-        <h1>My Favorite Flowers</h1>
+        {/* <h1>My Favorite Flowers</h1> */}
+        {isAuthenticated &&
+        <flowerFa
+          const show={this.state.show}
+          const updataFlower={this.updataFlower}
+          const shawingModeleUpdate={this.shawingModeleUpdate}
+        />
+        }
 
         {this.state.flowerFa.length>0 &&
         this.state.flowerFa.map(flower => {
